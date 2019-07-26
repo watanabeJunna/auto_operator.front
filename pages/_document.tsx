@@ -5,6 +5,7 @@ import Document, {
     Main,
 } from "next/document"
 import { ServerStyleSheet } from "styled-components"
+import { RenderPage, DocumentInitialProps } from "next-server/dist/lib/utils"
 
 type IProps = {
     styleTags: React.ReactElement[]
@@ -19,15 +20,15 @@ type IProps = {
  */
 export default class extends Document<IProps> {
     static async getInitialProps(ctx: DocumentContext) {
-        const sheet = new ServerStyleSheet()
-        const originalRenderPage = ctx.renderPage
+        const sheet: ServerStyleSheet = new ServerStyleSheet()
+        const originalRenderPage: RenderPage = ctx.renderPage
 
         ctx.renderPage = () =>
             originalRenderPage({
                 enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
             })
 
-        const initialProps = await Document.getInitialProps(ctx)
+        const initialProps: DocumentInitialProps = await Document.getInitialProps(ctx)
 
         return {
             ...initialProps,
