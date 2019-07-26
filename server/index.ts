@@ -10,14 +10,6 @@ app
     .then(() => {
         const server = express()
 
-        server.get("/fetch-test", (_, res) => {
-            return res.send({ status: "OK" })
-        })
-
-        server.post("/fetch-test", (_, res) => {
-            return res.send({ status: "OK" })
-        })
-
         server.get('*', (req, res) => {
             return handle(req, res)
         })
