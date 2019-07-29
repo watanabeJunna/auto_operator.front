@@ -1,13 +1,12 @@
-import { Container } from "../../components/Container"
 import styled, { css } from "styled-components"
 import React, { RefObject } from "react"
+import { Container } from "../../components/Container"
 
-export default () => (<>
+export default () => (
     <Container>
         <Form>
         </Form>
-    </Container>
-</>)
+    </Container>)
 
 type IProps = {}
 
@@ -18,30 +17,34 @@ class Form extends React.Component<IProps> {
         return (
             <FormContainer>
                 <FormTitle>
-                    Sign in
+                    <p>Sign in</p>
                 </FormTitle>
-                <FormStyle>
-                    {/* <input
+                {/* <input
                         ref={this.inputRef}
                         placeholder="Hover to focus!"
                         onMouseEnter={() => {
                             this.inputRef.current.focus()
                         }}
                     /> */}
-                    <UsernameLabel>
-                        <p>Username or Email</p>
-                    </UsernameLabel>
-                    <UsernameInput />
-                    <PasswordLabel>
-                        <p>Password</p>
-                    </PasswordLabel>
-                    <PasswordInput />
-                    <SubmitButton />
-                </FormStyle>
-            </FormContainer >
+                <UsernameLabel>
+                    <p>Username or Email</p>
+                </UsernameLabel>
+                <UsernameInput />
+                <PasswordLabel>
+                    <p>Password</p>
+                </PasswordLabel>
+                <PasswordInput />
+                <SubmitButton />
+            </FormContainer>
         )
     }
 }
+
+const FormContainer = styled.div`
+    padding: 40px  0 20px;
+    margin: 0 auto;
+    justify-content: space-around;
+`
 
 const FormTitle = styled.div`
     font-size: 42px;
@@ -62,21 +65,12 @@ const PasswordLabel = styled.div`
     ${LabelBaseStyle}
 `
 
-const FormContainer = styled.div`
-    padding: 40px  0 20px;
-    margin: 0 auto;
-`
-
 const InputBaseStyle = css`
     width: 200px;
     margin-bottom: 10px;
     border-radius: 7px;
     border: 1px solid #dee7ec;
     padding: 8px;
-`
-
-const FormStyle = styled.form`
-    justify-content: space-around;
 `
 
 const UsernameInput = styled.input.attrs(() => ({
