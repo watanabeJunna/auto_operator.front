@@ -29,7 +29,7 @@ const Index: FC = () => {
 
 const commonStyle = css`
     font-family: 'Raleway', sans-serif;
-    color: #99a9ba;
+    color: #446456;
 `
 
 const Title = styled.div`
