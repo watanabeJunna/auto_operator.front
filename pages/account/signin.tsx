@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { FC, MouseEvent, useRef, MutableRefObject } from "react"
+import { FC, useRef, useState, MutableRefObject } from "react"
 import { Container } from "../../components/Container"
 
 export default () => (
@@ -13,26 +13,36 @@ const Form: FC = () => {
     const usernameRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
     const passwordRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
 
-    type IIsValid = string | undefined | void
+    interface IInputError {
+        error: boolean
+        message?: string
+    }
 
-    const isUsernameInvalid = (username: string): IIsValid => {
+    const [usernameError, setUsernameError] = useState<IInputError>({
+        error: false,
+        message: ""
+    })
+
+    const [passwordError, setPasswordError] = useState<IInputError>({
+        error: false,
+        message: ""
+    })
+
+    type IErrorMessage = string | void
+
+    const checkUsername = (username: string): IErrorMessage => {
         if (!username) {
-            return ""
+            return "username is required."
         }
-
-        return
     }
 
-    const isPasswordInvalid = (password: string): IIsValid => {
+    const checkPassword = (password: string): IErrorMessage => {
         if (!password) {
-            return ""
+            return "password is required."
         }
-
-        return
     }
 
-
-    const onClick = (_e: MouseEvent) => {
+    const onClick = () => {
         if (!usernameRef.current || !passwordRef.current) {
             return
         }
@@ -43,19 +53,32 @@ const Form: FC = () => {
         const usernameInputVal = usernameRef.current.value
         const passwordInputVal = passwordRef.current.value
 
-        let result: IIsValid
+        // check input value
+        let message: IErrorMessage
 
-        result = isUsernameInvalid(usernameInputVal)
+        message = checkUsername(usernameInputVal)
 
-        if (result) {
-
+        if (typeof message === 'string' && message.length !== 0) {
+            setUsernameError({
+                error: true,
+                message: message
+            })
+        } else {
+            setUsernameError({ error: false })
         }
 
-        result = isPasswordInvalid(passwordInputVal)
+        message = checkPassword(passwordInputVal)
 
-        if (result) {
-
+        if (typeof message === 'string' && message.length !== 0) {
+            setPasswordError({
+                error: true,
+                message: message
+            })
+        } else {
+            setPasswordError({ error: false })
         }
+
+        // submit value data
     }
 
     return (
@@ -66,12 +89,22 @@ const Form: FC = () => {
             <UsernameLabel>
                 <p>Username or Email</p>
             </UsernameLabel>
-            <UsernameInput ref={usernameRef} />
+            <UsernameInput
+                ref={usernameRef}
+                error={usernameError.error} />
+            <UsernameWarn>
+                {usernameError.message}
+            </UsernameWarn>
             <PasswordLabel>
                 <p>Password</p>
             </PasswordLabel>
-            <PasswordInput ref={passwordRef} />
-            <SubmitButton onClick={e => onClick(e)}>
+            <PasswordInput
+                ref={passwordRef}
+                error={passwordError.error} />
+            <PasswordWarn>
+                {passwordError.message}
+            </PasswordWarn>
+            <SubmitButton onClick={() => onClick()}>
                 <span>Sign in</span>
             </SubmitButton>
         </FormContainer>
@@ -111,31 +144,29 @@ const PasswordLabel = styled.div`
 `
 
 /// Input
-const InputBaseStyle = css`
+type IInputProps = {
+    error: boolean
+}
+
+const InputBaseStyle = css<IInputProps>`
     width: 200px;
     margin-bottom: 10px;
     border-radius: 3px;
-    border: 1px solid #dee7ec;
+    border: ${props => props.error && '1px solid red' || '1px solid #dee7ec'};
     padding: 8px;
 `
 
-const UsernameInput = styled.input.attrs(() => ({
-    type: "text",
-    name: "username",
-}))`
+const UsernameInput = styled.input`
     ${InputBaseStyle}
 `
 
 const PasswordInput = styled.input.attrs(() => ({
-    type: "text",
-    name: "password",
+    type: "password",
 }))`
     ${InputBaseStyle}
 `
 
-const SubmitButton = styled.button.attrs(() => ({
-    type: "submit"
-}))`
+const SubmitButton = styled.button`
     display: block;
     background-color: white;
     font-family: 'Raleway', sans-serif;
@@ -149,4 +180,13 @@ const SubmitButton = styled.button.attrs(() => ({
     &:hover {
         opacity: 1;
     }
+`
+
+// Warn
+const UsernameWarn = styled.div`
+    color: red;
+`
+
+const PasswordWarn = styled.div`
+    color: red;
 `
