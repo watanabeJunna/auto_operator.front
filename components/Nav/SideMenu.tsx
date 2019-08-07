@@ -8,11 +8,11 @@ type IProps = {
     items: string[]
 }
 
-export const SideMenu: FC<IProps> = IProps => (
-    IProps.isDisplaySideMenu ?
-        <SideMenuWrapper active={IProps.active}>
+export const SideMenu: FC<IProps> = props => (
+    props.isDisplaySideMenu ?
+        <SideMenuWrapper active={props.active}>
             {
-                IProps.items.map((item: string, c: ReactText) => (
+                props.items.map((item: string, c: ReactText) => (
                     <MenuItem key={c}>
                         {item}
                     </MenuItem>
@@ -31,7 +31,7 @@ const SideMenuWrapper = styled.div<IProps>`
     right: 0;
     z-index: 1;
     background-color: #fff;
-    ${IProps => IProps.active ? css`
+    ${props => props.active ? css`
     transform: translateX(0px);` : css`
     transform: translateX(${WRAPPER_WIDTH}px);`}
     transition: transform .5s, width .5s;
