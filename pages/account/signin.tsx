@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import React, { FC, MouseEvent, useRef } from "react"
+import { FC, MouseEvent, useRef, MutableRefObject } from "react"
 import { Container } from "../../components/Container"
 
 export default () => (
@@ -10,25 +10,54 @@ export default () => (
 )
 
 const Form: FC = () => {
-    const usernameRef: React.MutableRefObject<HTMLInputElement | null> = useRef(null)
-    const passwordRef: React.MutableRefObject<HTMLInputElement | null> = useRef(null)
+    const usernameRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
+    const passwordRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
+
+    type IIsValid = string | undefined | void
+
+    const isUsernameInvalid = (username: string): IIsValid => {
+        if (!username) {
+            return ""
+        }
+
+        return
+    }
+
+    const isPasswordInvalid = (password: string): IIsValid => {
+        if (!password) {
+            return ""
+        }
+
+        return
+    }
 
 
     const onClick = (_e: MouseEvent) => {
         if (!usernameRef.current || !passwordRef.current) {
             return
         }
-            
+
         usernameRef.current.focus()
         passwordRef.current.focus()
 
         const usernameInputVal = usernameRef.current.value
         const passwordInputVal = passwordRef.current.value
 
-        if (!usernameInputVal || !passwordInputVal)
-            return
+        let result: IIsValid
+
+        result = isUsernameInvalid(usernameInputVal)
+
+        if (result) {
+
+        }
+
+        result = isPasswordInvalid(passwordInputVal)
+
+        if (result) {
+
+        }
     }
-    
+
     return (
         <FormContainer>
             <FormTitle>
@@ -49,6 +78,7 @@ const Form: FC = () => {
     )
 }
 
+/// Form
 const FormContainer = styled.div`
     font-family: 'Raleway', sans-serif;
     padding: 50px 90px 90px;
@@ -64,6 +94,7 @@ const FormTitle = styled.div`
     color: #446456;
 `
 
+/// Label
 const LabelBaseStyle = css`
     margin: 0;
     opacity: 0.7;
@@ -79,6 +110,7 @@ const PasswordLabel = styled.div`
     ${LabelBaseStyle}
 `
 
+/// Input
 const InputBaseStyle = css`
     width: 200px;
     margin-bottom: 10px;
