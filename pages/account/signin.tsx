@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components"
 import { FC, useRef, useState, MutableRefObject } from "react"
 import { Container } from "../../components/Container"
+import fetch from "isomorphic-fetch"
 
 export default () => (
     <Container>
@@ -42,7 +43,7 @@ const Form: FC = () => {
         }
     }
 
-    const onClick = () => {
+    const onClick = async () => {
         if (!usernameRef.current || !passwordRef.current) {
             return
         }
@@ -63,6 +64,8 @@ const Form: FC = () => {
                 error: true,
                 message: message
             })
+
+            return
         } else {
             setUsernameError({ error: false })
         }
@@ -74,11 +77,37 @@ const Form: FC = () => {
                 error: true,
                 message: message
             })
+
+            return
         } else {
             setPasswordError({ error: false })
         }
 
+        const username = usernameInputVal
+        const password = passwordInputVal
+
         // submit value data
+        const response: Response = await fetch('/account/sign_in', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+
+        const data: JSON = await response.json()
+
+        /**
+         * TODO:
+         * 1. encrypt password && make encrypt library
+         * 2. routing to login page
+         * 3. set cookie
+         */
+        console.log(data)
     }
 
     return (

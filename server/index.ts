@@ -1,4 +1,5 @@
-import express from "express"
+import express, { Request, Response } from "express"
+import bodyParser from "body-parser"
 import next from "next"
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -10,6 +11,21 @@ app
     .then(() => {
         const server = express()
 
+        server.use(bodyParser.urlencoded({ extended: true }))
+        server.use(bodyParser.json())
+
+        server.post('/account/sign_in', (req: Request, res: Response): any => {
+            /**
+             * TODO:
+             * 1. body check
+             * 2. create db function
+             * 3. select sql
+             * 4. craete session db
+             * 5. make response interface
+             */
+            res.send(req.body)
+        })
+
         server.get('*', (req, res) => {
             return handle(req, res)
         })
@@ -19,4 +35,3 @@ app
             console.log('> Ready on http://localhost:3001')
         })
     })
-
