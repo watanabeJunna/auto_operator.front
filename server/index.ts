@@ -24,7 +24,10 @@ app
              * 5. make response interface
              */
             console.log(req.body)
-            res.send({ ok: false })
+            const response: LoginAuthResponse = {
+                ok: false
+            }
+            res.send(response)
         })
 
         server.get('*', (req, res) => {
