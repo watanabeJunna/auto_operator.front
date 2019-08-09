@@ -23,7 +23,8 @@ app
              * 4. craete session db
              * 5. make response interface
              */
-            res.send(req.body)
+            console.log(req.body)
+            res.send({ ok: false })
         })
 
         server.get('*', (req, res) => {

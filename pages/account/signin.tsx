@@ -1,45 +1,49 @@
-import styled, { css } from "styled-components"
-import { FC, useRef, useState, MutableRefObject } from "react"
-import { Container } from "../../components/Container"
-import fetch from "isomorphic-fetch"
+import styled, { css } from 'styled-components'
+import { FC, useRef, useState, MutableRefObject } from 'react'
+import { Container } from '../../components/Container'
+import fetch from 'isomorphic-fetch'
 
 export default () => (
     <Container>
-        <Form>
-        </Form>
+        <LoginForm />
     </Container>
 )
 
-const Form: FC = () => {
+const LoginForm: FC = () => {
     const usernameRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
     const passwordRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
 
-    interface IInputError {
-        error: boolean
+    type IError = {
+        error?: boolean
         message?: string
     }
 
-    const [usernameError, setUsernameError] = useState<IInputError>({
+    const [authError, setAuthError] = useState<IError>({
         error: false,
-        message: ""
+        message: ''
     })
 
-    const [passwordError, setPasswordError] = useState<IInputError>({
+    const [usernameError, setUsernameError] = useState<IError>({
         error: false,
-        message: ""
+        message: ''
+    })
+
+    const [passwordError, setPasswordError] = useState<IError>({
+        error: false,
+        message: ''
     })
 
     type IErrorMessage = string | void
 
     const checkUsername = (username: string): IErrorMessage => {
         if (!username) {
-            return "username is required."
+            return 'username is required.'
         }
     }
 
     const checkPassword = (password: string): IErrorMessage => {
         if (!password) {
-            return "password is required."
+            return 'password is required.'
         }
     }
 
@@ -64,8 +68,6 @@ const Form: FC = () => {
                 error: true,
                 message: message
             })
-
-            return
         } else {
             setUsernameError({ error: false })
         }
@@ -77,18 +79,24 @@ const Form: FC = () => {
                 error: true,
                 message: message
             })
-
-            return
         } else {
             setPasswordError({ error: false })
+        }
+
+        if (typeof message === 'string' && message.length !== 0) {
+            return
         }
 
         const username = usernameInputVal
         const password = passwordInputVal
 
+        type ILoginAuthResponse = {
+            ok: boolean
+        }
+
         // submit value data
-        const response: Response = await fetch('/account/sign_in', {
-            method: "POST",
+        const response: ILoginAuthResponse = await fetch('/account/sign_in', {
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -97,17 +105,16 @@ const Form: FC = () => {
                 username: username,
                 password: password
             })
-        })
+        }).then((response: Response) => response.json())
 
-        const data: JSON = await response.json()
-
-        /**
-         * TODO:
-         * 1. encrypt password && make encrypt library
-         * 2. routing to login page
-         * 3. set cookie
-         */
-        console.log(data)
+        if (response.ok) {
+            // set cookie
+            window.location.href = `/account/${username}`
+        } else {
+            setAuthError({
+                message: 'Invalid login or password.'
+            })
+        }
     }
 
     return (
@@ -121,18 +128,21 @@ const Form: FC = () => {
             <UsernameInput
                 ref={usernameRef}
                 error={usernameError.error} />
-            <UsernameWarn>
+            <UsernameError>
                 {usernameError.message}
-            </UsernameWarn>
+            </UsernameError>
             <PasswordLabel>
                 <p>Password</p>
             </PasswordLabel>
             <PasswordInput
                 ref={passwordRef}
                 error={passwordError.error} />
-            <PasswordWarn>
+            <PasswordError>
                 {passwordError.message}
-            </PasswordWarn>
+            </PasswordError>
+            <AuthError>
+                {authError.message}
+            </AuthError>
             <SubmitButton onClick={() => onClick()}>
                 <span>Sign in</span>
             </SubmitButton>
@@ -174,7 +184,7 @@ const PasswordLabel = styled.div`
 
 /// Input
 type IInputProps = {
-    error: boolean
+    error?: boolean
 }
 
 const InputBaseStyle = css<IInputProps>`
@@ -190,7 +200,7 @@ const UsernameInput = styled.input`
 `
 
 const PasswordInput = styled.input.attrs(() => ({
-    type: "password",
+    type: 'password',
 }))`
     ${InputBaseStyle}
 `
@@ -212,10 +222,14 @@ const SubmitButton = styled.button`
 `
 
 // Warn
-const UsernameWarn = styled.div`
+const AuthError = styled.div`
     color: red;
 `
 
-const PasswordWarn = styled.div`
+const UsernameError = styled.div`
+    color: red;
+`
+
+const PasswordError = styled.div`
     color: red;
 `
