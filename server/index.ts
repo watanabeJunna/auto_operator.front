@@ -14,7 +14,7 @@ app
         server.use(bodyParser.urlencoded({ extended: true }))
         server.use(bodyParser.json())
 
-        server.post('/account/sign_in', (req: Request, res: Response): any => {
+        server.post('/account/sign_in', (req: Request, res: Response): void => {
             /**
              * TODO:
              * 1. body check
@@ -30,12 +30,13 @@ app
             res.send(response)
         })
 
-        server.get('*', (req, res) => {
+        server.get('*', (req: Request, res: Response): Promise<void> => {
             return handle(req, res)
         })
 
-        server.listen(3001, err => {
-            if (err) throw err
-            console.log('> Ready on http://localhost:3001')
+        server.listen(3000, (err: Error): void => {
+            if (err) {
+                throw err
+            }
         })
     })
