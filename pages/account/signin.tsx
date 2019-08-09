@@ -90,10 +90,6 @@ const LoginForm: FC = () => {
         const username = usernameInputVal
         const password = passwordInputVal
 
-        type ILoginAuthResponse = {
-            ok: boolean
-        }
-
         // submit value data
         const response: ILoginAuthResponse = await fetch('/account/sign_in', {
             method: 'POST',
@@ -221,7 +217,7 @@ const SubmitButton = styled.button`
     }
 `
 
-// Warn
+// Error Message Area
 const AuthError = styled.div`
     color: red;
 `
