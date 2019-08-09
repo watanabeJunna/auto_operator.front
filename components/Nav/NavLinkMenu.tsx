@@ -31,6 +31,5 @@ const NavItem = styled.div`
     ${Item}
     padding: 18px 32px;
     font-family: 'Raleway', sans-serif;
-    font-size: 24px;
-    font-weight: 300;
+    font-weight: 400;
 `
