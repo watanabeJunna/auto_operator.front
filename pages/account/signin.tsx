@@ -13,35 +13,35 @@ const LoginForm: FC = () => {
     const usernameRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
     const passwordRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
 
-    type IError = {
+    type Error = {
         error?: boolean
         message?: string
     }
 
-    const [authError, setAuthError] = useState<IError>({
+    const [authError, setAuthError] = useState<Error>({
         error: false,
         message: ''
     })
 
-    const [usernameError, setUsernameError] = useState<IError>({
+    const [usernameError, setUsernameError] = useState<Error>({
         error: false,
         message: ''
     })
 
-    const [passwordError, setPasswordError] = useState<IError>({
+    const [passwordError, setPasswordError] = useState<Error>({
         error: false,
         message: ''
     })
 
-    type IErrorMessage = string | void
+    type ErrorMessage = string | void
 
-    const checkUsername = (username: string): IErrorMessage => {
+    const checkUsername = (username: string): ErrorMessage => {
         if (!username) {
             return 'username is required.'
         }
     }
 
-    const checkPassword = (password: string): IErrorMessage => {
+    const checkPassword = (password: string): ErrorMessage => {
         if (!password) {
             return 'password is required.'
         }
@@ -59,7 +59,7 @@ const LoginForm: FC = () => {
         const passwordInputVal = passwordRef.current.value
 
         // check input value
-        let message: IErrorMessage
+        let message: ErrorMessage
 
         message = checkUsername(usernameInputVal)
 
@@ -91,7 +91,7 @@ const LoginForm: FC = () => {
         const password = passwordInputVal
 
         // submit value data
-        const response: ILoginAuthResponse = await fetch('/account/sign_in', {
+        const response: LoginAuthResponse = await fetch('/account/sign_in', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -179,11 +179,11 @@ const PasswordLabel = styled.div`
 `
 
 /// Input
-type IInputProps = {
+type Props = {
     error?: boolean
 }
 
-const InputBaseStyle = css<IInputProps>`
+const InputBaseStyle = css<Props>`
     width: 200px;
     margin-bottom: 10px;
     border-radius: 3px;

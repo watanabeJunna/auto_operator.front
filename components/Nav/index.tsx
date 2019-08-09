@@ -5,13 +5,13 @@ import { NavLinkMenu } from "./NavLinkMenu"
 import { NavIconMenu, Bars } from "./NavIconMenu"
 import { SideMenu } from "./SideMenu"
 
-type IProps = {
+type Props = {
     navMenuItems: NavItem[]
     sideMenuItems: string[]
     isDisplaySideMenu: boolean
 }
 
-export const Nav: FC<IProps> = props => {
+export const Nav: FC<Props> = props => {
     const [active, setActive] = useState(false)
 
     return <>

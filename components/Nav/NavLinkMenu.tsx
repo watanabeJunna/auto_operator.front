@@ -3,11 +3,11 @@ import Link from "next/link"
 import styled from "styled-components"
 import { Item } from "./Item"
 
-type IProps = {
+type Props = {
     items: NavItem[]
 }
 
-export const NavLinkMenu: FC<IProps> = props => (
+export const NavLinkMenu: FC<Props> = props => (
     <NavLinkMenuWrapper>
         {
             props.items.map((item: NavItem, c: ReactText) => {

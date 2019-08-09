@@ -49,7 +49,7 @@ const navMenuItems: NavItem[] = [
   { name: "Signin", link: "/account/signin" }
 ]
 
-const sideMenuItems: string[] = [
+const sideMenuItems = [
   "About",
   "Signin",
   "Signup"

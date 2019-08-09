@@ -1,3 +1,4 @@
+import { ReactElement } from "react"
 import Document, {
     DocumentContext,
     Head,
@@ -7,8 +8,8 @@ import Document, {
 import { ServerStyleSheet } from "styled-components"
 import { RenderPage, DocumentInitialProps } from "next-server/dist/lib/utils"
 
-type IProps = {
-    styleTags: React.ReactElement[]
+type Props = {
+    styleTags: ReactElement[]
 }
 
 /**
@@ -18,7 +19,7 @@ type IProps = {
  * @see https://github.com/zeit/next.js/tree/master/examples/with-styled-components
  * @see https://github.com/nekochans/redux-next-boilerplate/blob/master/src/pages/_document.tsx
  */
-export default class extends Document<IProps> {
+export default class extends Document<Props> {
     static async getInitialProps(ctx: DocumentContext) {
         const sheet: ServerStyleSheet = new ServerStyleSheet()
         const originalRenderPage: RenderPage = ctx.renderPage
