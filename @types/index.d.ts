@@ -3,6 +3,6 @@ declare interface NavItem {
     link?: string
 }
 
-declare interface ILoginAuthResponse {
+declare interface LoginAuthResponse {
     ok: boolean
 }
