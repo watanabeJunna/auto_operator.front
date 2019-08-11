@@ -2,13 +2,13 @@ import { FC, ReactText } from "react"
 import styled, { css, StyledComponentBase } from "styled-components"
 import { Item } from "./Item"
 
-type IProps = {
+type Props = {
     isDisplaySideMenu: boolean
     active: boolean
     items: string[]
 }
 
-export const SideMenu: FC<IProps> = props => (
+export const SideMenu: FC<Props> = props => (
     props.isDisplaySideMenu ?
         <SideMenuWrapper active={props.active}>
             {
@@ -24,7 +24,7 @@ export const SideMenu: FC<IProps> = props => (
 
 const WRAPPER_WIDTH: number = 250
 
-const SideMenuWrapper = styled.div<IProps>`
+const SideMenuWrapper = styled.div<Props>`
     width: ${WRAPPER_WIDTH}px;
     height: 100%;
     position: fixed;
