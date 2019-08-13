@@ -10,5 +10,5 @@
     "ignore": [
         "tests/**/*.ts"
     ],
-    "exec": "sed -i s/'\"module\": \"esnext\"'/'\"module\": \"commonjs\"'/ tsconfig.json && bash ./node_modules/.bin/ts-node server/index.ts"
+    "exec": "sed -i s/'\"module\": \"esnext\"'/'\"module\": \"commonjs\"'/ tsconfig.json && node ./node_modules/.bin/ts-node server/index.ts"
 }
