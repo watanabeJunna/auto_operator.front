@@ -14,7 +14,7 @@ app
         server.use(bodyParser.urlencoded({ extended: true }))
         server.use(bodyParser.json())
 
-        server.post('/account/sign_in', (req: Request, res: Response): void => {
+        server.post('/account/sign_in', (_req: Request, res: Response): void => {
             /**
              * TODO:
              * 1. body check
@@ -23,10 +23,15 @@ app
              * 4. craete session db
              * 5. make response interface
              */
-            console.log(req.body)
+
+            interface LoginAuthResponse {
+                ok: boolean
+            }
+
             const response: LoginAuthResponse = {
                 ok: false
             }
+
             res.send(response)
         })
 
