@@ -3,8 +3,19 @@ version: "3.7"
 services:
   web:
     build: "."
+    restart: "always"
     command: "npm run dev"
     volumes:
       - ".:/app"
     ports: 
       - "3000:3000"
+  db:
+    image: "mongo:3.4.22-xenial"
+    volumes:
+      - "db:/data/db"
+      - "configdb:/data/configdb"
+    ports:
+      - "27017:27017"
+volumes:
+  db:
+  configdb:
