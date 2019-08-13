@@ -39,3 +39,13 @@ Account.find({}, (err: Error, data: IAccount) => {
     console.log(data)
 })
 ```
+
+docker run --name dev-mongo -it -d -v auto_operatorfront_db://data/db mongo
+
+docker exec -it dev-mongo //bin/sh
+
+node node_modules/ts-node/dist/index.js insert.ts // tsconfig.json module: commonjsにすること
+
+docker volume ls | xargs docker volume rm
+
+dcrm
