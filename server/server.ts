@@ -3,7 +3,7 @@ import bodyParser from "body-parser"
 import next from "next"
 import mongoose from "mongoose"
 import { MongoError } from "mongodb"
-import Account, { IAccount } from "./models/Account"
+// import Account, { IAccount } from "./models/Account"
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -16,7 +16,7 @@ app
 
         mongoose.connect('mongodb://db:27017/auto_operator', {
             useNewUrlParser: true
-        }, (err: MongoError) => { throw err })
+        }, (err: MongoError) => { if (err) throw err })
 
         server.use(bodyParser.urlencoded({ extended: true }))
         server.use(bodyParser.json())
@@ -30,13 +30,6 @@ app
              * 4. craete session db
              * 5. make response interface
              */
-            Account.find({}, (err: Error, res: IAccount[]) => {
-                if (err) throw err
-                console.log("start0")
-                console.log(res)
-            })
-
-            console.log("start")
 
             interface LoginAuthResponse {
                 ok: boolean
