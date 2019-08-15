@@ -16,13 +16,17 @@ namespace Cipher {
 
     export const encrypt = (text: string): string => {
         const cipher = crypto.createCipheriv(algorithm, key, iv)
+
         let crypted = cipher.update(text)
+
         return Buffer.concat([crypted, cipher.final()]).toString('base64')
     }
 
     export const decrypt = (crypted: string): string => {
         const decipher = crypto.createDecipheriv(algorithm, key, iv)
+
         let decrypted = decipher.update(Buffer.from(crypted, 'base64'))
+
         return Buffer.concat([decrypted, decipher.final()]).toString('utf-8')
     }
 }

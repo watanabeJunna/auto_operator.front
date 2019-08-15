@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express'
-import Cipher from "../libs/Cipher"
+import cipher from "../libs/cipher"
 import Account, { IAccount } from "./models/Account"
 
 const router: Router = Router()
@@ -17,7 +17,7 @@ router.post('/account/sign_in', async (req: Request, res: Response) => {
         return
     }
 
-    const encryptedPass: string = Cipher.encrypt(password)
+    const encryptedPass: string = cipher.encrypt(password)
 
     const user: IAccount | null = await Account.findOne({
         username: username,
