@@ -12,6 +12,8 @@ services:
     environment:
       - AES_KEY=${AES_KEY}
       - AES_IV=${AES_IV}
+      - SESSION_SIGNNATURE=${SESSION_SIGNNATURE}
+      - NODE_ENV=development
   db:
     image: "mongo:3.4.22-xenial"
     restart: "always"
