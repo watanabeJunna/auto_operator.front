@@ -1,10 +1,6 @@
 {
     "watch": [
-        "components",
-        "server",
-        "pages",
-        "@types",
-        "utility"
+        "server"
     ],
     "ext": "ts",
     "ignore": [
