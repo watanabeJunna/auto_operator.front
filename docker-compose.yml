@@ -9,8 +9,12 @@ services:
       - ".:/app"
     ports: 
       - "3000:3000"
+    environment:
+      - AES_KEY=${AES_KEY}
+      - AES_IV=${AES_IV}
   db:
     image: "mongo:3.4.22-xenial"
+    restart: "always"
     volumes:
       - "db:/data/db"
       - "configdb:/data/configdb"
