@@ -105,7 +105,7 @@ const LoginForm: FC = () => {
 
         if (response.ok) {
             // set cookie
-            window.location.href = `/account/${username}`
+            window.location.href = `/account/dashboard`
         } else {
             setAuthError({
                 message: 'Invalid login or password.'
