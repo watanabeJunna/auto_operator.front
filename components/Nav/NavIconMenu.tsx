@@ -10,5 +10,5 @@ export const NavIconMenu = styled.div`
 
 export const Bars = styled(FontAwesomeIcon)`
     color: #228aff;
-    font-size: 28px;
+    font-size: 36px;
 `

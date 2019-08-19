@@ -28,6 +28,7 @@ const SideMenuWrapper = styled.div<Props>`
     width: ${WRAPPER_WIDTH}px;
     height: 100%;
     position: fixed;
+    top: 72px;
     right: 0;
     z-index: 1;
     background-color: #fff;
@@ -39,8 +40,8 @@ const SideMenuWrapper = styled.div<Props>`
 
 const MenuItem = styled.div`
     ${Item}
+    font-size: 1.4em; /* Override */
     padding-bottom: 36px;
     font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    font-size: 18px;
+    font-weight: 400;
 `
