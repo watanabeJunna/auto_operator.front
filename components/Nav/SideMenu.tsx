@@ -5,11 +5,11 @@ import { Item } from "./Item"
 type Props = {
     isDisplaySideMenu: boolean
     active: boolean
-    items: string[]
+    items?: string[]
 }
 
 export const SideMenu: FC<Props> = props => (
-    props.isDisplaySideMenu ?
+    props.isDisplaySideMenu && typeof props.items !== 'undefined' ?
         <SideMenuWrapper active={props.active}>
             {
                 props.items.map((item: string, c: ReactText) => (

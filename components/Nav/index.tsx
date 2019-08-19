@@ -7,7 +7,7 @@ import { SideMenu } from "./SideMenu"
 
 type Props = {
     navMenuItems: NavItem[]
-    sideMenuItems: string[]
+    sideMenuItems?: string[]
     isDisplaySideMenu: boolean
 }
 
