@@ -13,22 +13,22 @@ const LoginForm: FC = () => {
     const usernameRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
     const passwordRef: MutableRefObject<HTMLInputElement | null> = useRef(null)
 
-    type Error = {
+    type RuntimeError = {
         error?: boolean
         message?: string
     }
 
-    const [authError, setAuthError] = useState<Error>({
+    const [authError, setAuthError] = useState<RuntimeError>({
         error: false,
         message: ''
     })
 
-    const [usernameError, setUsernameError] = useState<Error>({
+    const [usernameError, setUsernameError] = useState<RuntimeError>({
         error: false,
         message: ''
     })
 
-    const [passwordError, setPasswordError] = useState<Error>({
+    const [passwordError, setPasswordError] = useState<RuntimeError>({
         error: false,
         message: ''
     })
@@ -90,24 +90,41 @@ const LoginForm: FC = () => {
         const username = usernameInputVal
         const password = passwordInputVal
 
+        let response: LoginAuthResponse = {
+            ok: false
+        }
+
         // submit value data
-        const response: LoginAuthResponse = await fetch('/account/sign_in', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
+
+        try {
+            response = await fetch('/account/sign_in', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            }).then((response: Response) => response.json())
+
+        } catch (e) {
+            // leave a log
+
+            setAuthError({
+                error: true,
+                message: 'Internal server error, please try again later'
             })
-        }).then((response: Response) => response.json())
+
+            return
+        }
 
         if (response.ok) {
-            // set cookie
             window.location.href = `/account/dashboard`
         } else {
             setAuthError({
+                error: true,
                 message: 'Invalid login or password.'
             })
         }
