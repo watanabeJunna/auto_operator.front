@@ -6,7 +6,6 @@ import { Container } from "../components/Container"
 export default () => (<>
   <Nav
     navMenuItems={navMenuItems}
-    sideMenuItems={sideMenuItems}
     isDisplaySideMenu={false}
   />
   <Container>
@@ -47,10 +46,4 @@ const Desciption = styled.div`
 const navMenuItems: NavItem[] = [
   { name: "Signup", link: "/account/signup" },
   { name: "Signin", link: "/account/signin" }
-]
-
-const sideMenuItems = [
-  "About",
-  "Signin",
-  "Signup"
 ]
