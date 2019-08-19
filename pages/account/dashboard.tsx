@@ -1,6 +1,8 @@
 import { Nav } from "../../components/Nav"
+import { NextPageContext } from "next"
+import Auth from '../../libs/auth'
 
-export default () => {
+function DashBoard() {
     return (<>
         <Nav
             isDisplaySideMenu={true}
@@ -11,13 +13,26 @@ export default () => {
     </>)
 }
 
-// NavMenuItemsが指定されないと、画面崩れるから、TOPの初期値指定する様に
+DashBoard.getInitialProps = ({ req, res }: NextPageContext): object => {
+    if (!req || !Auth.auth(req)) {
+        if (res) {
+            res.writeHead(302, { Location: '/account/signin' })
+            res.end()
+        }
+    }
+
+    return {}
+}
+
+export default DashBoard
+
 const navMenuItems: NavItem[] = [
     { name: "DashBoard", link: "/account/dashboard" },
+    { name: 'Logout', link: '/account/logout' }
 ]
 
 const sideMenuItems = [
-    "mock",
+    "Logout",
     "mock",
     "mock",
     "mock",

@@ -5,13 +5,9 @@ import Account, { IAccount } from "./models/Account"
 const router: Router = Router()
 
 router.post('/account/sign_in', async (req: Request, res: Response) => {
-    const username = req.body.username
-    const password = req.body.password
+    const username: string = req.body.username
+    const password: string = req.body.password
 
-    /**
-     * TODO:
-     * 4. session
-     */
     if (typeof username !== 'string' || typeof password !== 'string') {
         res.send({ ok: false })
         return
@@ -31,6 +27,10 @@ router.post('/account/sign_in', async (req: Request, res: Response) => {
     if (!user) {
         res.send({ ok: false })
         return
+    }
+
+    if (req.session) {
+        req.session.authenticated = true
     }
 
     res.send({ ok: true })
