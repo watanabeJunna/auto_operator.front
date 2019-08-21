@@ -27,7 +27,7 @@ DashBoard.getInitialProps = ({ req, res }: NextPageContext): object => {
 export default DashBoard
 
 const navMenuItems: NavItem[] = [
-    { name: "DashBoard", link: "/account/dashboard" },
+    { name: "Auto Operator", link: "/account/dashboard" },
     { name: 'Logout', link: '/account/logout' }
 ]
 
