@@ -22,7 +22,10 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "typeRoots": [
+      "@types"
+    ]
   },
   "exclude": [
     "node_modules"
