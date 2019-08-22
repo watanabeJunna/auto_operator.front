@@ -9,8 +9,8 @@ interface AuthenticationMessage extends IncomingMessage {
 /**
  * login user authentication class.
  */
-class Auth {
-    public static auth(request: IncomingMessage): boolean {
+namespace Auth {
+    export function auth(request: IncomingMessage): boolean {
         const authRequest: AuthenticationMessage = request as AuthenticationMessage
 
         return (authRequest && authRequest.session.authenticated)

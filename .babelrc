@@ -5,6 +5,12 @@
     ],
     "plugins": [
         [
+            "@babel/plugin-transform-typescript",
+            {
+                "allowNamespaces": true
+            }
+        ],
+        [
             "styled-components",
             {
                 "ssr": true,
