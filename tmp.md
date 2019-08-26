@@ -16,5 +16,6 @@
 - mongodb、dataVolumeをホストと共有するのはWindowsと相性が悪い、
     認証をつける場合は、entry-point.dが必要になり、ホストと共有しなければならない
     なので認証は諦める
+- 9.4からapiが公開された、これでAPI
 
 node node_modules/ts-node/dist/index.js insert.ts // tsconfig.json module: commonjsにすること

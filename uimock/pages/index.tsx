@@ -2,6 +2,7 @@ import { NextPageContext } from 'next'
 import { Nav } from '../components/Nav'
 import { Request } from 'express'
 import styled from 'styled-components'
+import fetch from 'isomorphic-fetch'
 import { Container } from '../components/Container'
 
 type Props = {
@@ -45,7 +46,11 @@ const sideMenuItems = [
 ]
 
 const HashTagContainer = (props: Props): JSX.Element => {
-    const hashtags = props.hashtags ? props.hashtags : []
+    const hashtags = props.hashtags ? props.hashtags : [];
+
+    (async () => {
+        console.log(await fetch('http://localhost:3000/api/item').then((res: Response) => res.json()))
+    })()
 
     return (
         <Container>
@@ -108,10 +113,10 @@ const Input = styled.input`
 `
 
 const Button = styled.button`
-font-size: 1em;
-padding: 8px 18px;
-border: 1px solid black;
-border-radius: 10px;
+    font-size: 1em;
+    padding: 8px 18px;
+    border: 1px solid black;
+    border-radius: 10px;
 `
 
 const DetailContainer = styled.div`
