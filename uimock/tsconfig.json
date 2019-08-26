@@ -24,7 +24,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "typeRoots": [
-      "@types"
+      "@types",
+      "types"
     ]
   },
   "exclude": [
@@ -33,5 +34,5 @@
   "include": [
     "**/*.ts",
     "**/*.tsx"
-  ]
+  ],
 }

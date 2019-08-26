@@ -5,7 +5,8 @@ import Document, {
     NextScript,
     Main,
 } from "next/document"
-import { ServerStyleSheet } from "styled-components"
+import { createGlobalStyle, ServerStyleSheet } from "styled-components"
+import resets from "styled-reset"
 import { RenderPage, DocumentInitialProps } from "next-server/dist/lib/utils"
 
 type Props = {
@@ -43,6 +44,22 @@ export default class extends Document<Props> {
     }
 
     render() {
+        const GlobalStyle = createGlobalStyle`
+            ${resets}
+            input,
+            button,
+            textarea,
+            select {
+                margin: 0;
+                padding: 0;
+                background: none;
+                border: none;
+                outline: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+        `
         return (
             <html>
                 <Head>
@@ -51,6 +68,7 @@ export default class extends Document<Props> {
                         rel="stylesheet"
                     />
                     {this.props.styleTags}
+                    <GlobalStyle />
                 </Head>
                 <body>
                     <Main />

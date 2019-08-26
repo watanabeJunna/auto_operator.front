@@ -13,15 +13,13 @@ function DashBoard() {
     </>)
 }
 
-DashBoard.getInitialProps = ({ req, res }: NextPageContext): object => {
+DashBoard.getInitialProps = ({ req, res }: NextPageContext): void => {
     if (!req || !Auth.auth(req)) {
         if (res) {
             res.writeHead(302, { Location: '/account/signin' })
             res.end()
         }
     }
-
-    return {}
 }
 
 export default DashBoard
