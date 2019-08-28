@@ -2,8 +2,7 @@ version: "3.7"
 
 services:
   web:
-    build: "."
-    restart: "always"
+    build: "./app"
     command: "npm run dev"
     volumes:
       - ".:/app"
@@ -14,9 +13,14 @@ services:
       - AES_IV=${AES_IV}
       - SESSION_SIGNNATURE=${SESSION_SIGNNATURE}
       - NODE_ENV=development
+  api:
+    build: "./api"
+    volumes:
+      - ".:/app"
+    ports: 
+      - "3001:3001"
   db:
     image: "mongo:3.4.22-xenial"
-    restart: "always"
     volumes:
       - "db:/data/db"
       - "configdb:/data/configdb"
