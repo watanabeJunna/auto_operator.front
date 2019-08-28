@@ -1,10 +1,14 @@
-import { Router, Request, Response } from 'express'
-import cipher from "../libs/cipher"
-import Account, { IAccount } from "./models/Account"
+import cipher from "../../libs/cipher"
+import Account, { IAccount } from "../../server/models/Account"
+import { NextApiRequest, NextApiResponse } from 'next'
 
-const router: Router = Router()
+export default async (req: NextApiRequest, res: NextApiResponse) => {
 
-router.post('/account/sign_in', async (req: Request, res: Response) => {
+    console.log(req.method)
+    if (req.method !== 'POST') {
+        return
+    }
+
     const username: string = req.body.username
     const password: string = req.body.password
 
@@ -15,6 +19,8 @@ router.post('/account/sign_in', async (req: Request, res: Response) => {
 
     const encryptedPass: string = cipher.encrypt(password)
 
+    console.log(username, encryptedPass)
+
     const user: IAccount | null = await Account.findOne({
         username: username,
         password: encryptedPass
@@ -24,16 +30,17 @@ router.post('/account/sign_in', async (req: Request, res: Response) => {
         }
     })
 
+    console.log(user)
+
     if (!user) {
         res.send({ ok: false })
         return
     }
 
-    if (req.session) {
-        req.session.authenticated = true
-    }
+    // if (req.session) {
+    //     req.session.authenticated = true
+    // }
 
+    console.log('res')
     res.send({ ok: true })
-})
-
-export default router
+}

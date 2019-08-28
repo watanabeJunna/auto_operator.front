@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -L",
     "ui": "next"
   },
@@ -41,6 +40,7 @@
     "@zeit/next-typescript": "^1.1.1",
     "babel-plugin-styled-components": "^1.6.0",
     "nodemon": "^1.19.1",
-    "ts-node": "^8.3.0"
+    "ts-node": "^8.3.0",
+    "ts-node-dev": "^1.0.0-pre.42"
   }
 }

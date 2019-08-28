@@ -97,7 +97,7 @@ const LoginForm: FC = () => {
         // submit value data
 
         try {
-            response = await fetch('/account/sign_in', {
+            response = await fetch('/api/signin', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -106,9 +106,9 @@ const LoginForm: FC = () => {
                 body: JSON.stringify({
                     username: username,
                     password: password
-                })
+                },
+                )
             }).then((response: Response) => response.json())
-
         } catch (e) {
             // leave a log
 
@@ -119,6 +119,8 @@ const LoginForm: FC = () => {
 
             return
         }
+
+        console.log(response.ok)
 
         if (response.ok) {
             window.location.href = `/account/dashboard`
