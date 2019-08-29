@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-export default (_req: NextApiRequest, res: NextApiResponse) => {
+export default (req: NextApiRequest, res: NextApiResponse) => {
+    if (req.method !== 'POST') {
+        return
+    }
+    
     res.send({ message: 'Hello' })
 }

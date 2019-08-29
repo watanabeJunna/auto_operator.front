@@ -49,7 +49,9 @@ const HashTagContainer = (props: Props): JSX.Element => {
     const hashtags = props.hashtags ? props.hashtags : [];
 
     (async () => {
-        console.log(await fetch('http://localhost:3000/api/item').then((res: Response) => res.json()))
+        console.log(await fetch('http://localhost:3000/api/item', {
+            method: 'POST'
+        }).then((res: Response) => res.json()))
     })()
 
     return (
@@ -96,10 +98,8 @@ const Label = styled.div`
 `
 
 const Input = styled.input`
-    display: inline;
     border: 1px solid #aaa;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
+    transition: 0.3s;
     border-radius: 10px;
     font-size: 1.2em;
     font-family: 'Raleway', sans-serif;
@@ -107,16 +107,18 @@ const Input = styled.input`
     margin: auto 20px auto 0;
     :focus {
         outline: none;
-    border-color: white;
-    box-shadow: 0 0 5px #1abc9c;
-}
+        border-color: white;
+        box-shadow: 0 0 5px #1abc9c;
+    }
 `
 
 const Button = styled.button`
+    color: #666;
+    background-color: #fdfcfc;
     font-size: 1em;
     padding: 8px 18px;
-    border: 1px solid black;
     border-radius: 10px;
+    transition: 0.3s;
 `
 
 const DetailContainer = styled.div`
