@@ -1,22 +1,28 @@
-version: "3.7"
+version: "3"
 
 services:
-  web:
-    build: "."
-    restart: "always"
+  app:
+    build: "./app"
     command: "npm run dev"
     volumes:
       - ".:/app"
     ports: 
       - "3000:3000"
     environment:
-      - AES_KEY=${AES_KEY}
-      - AES_IV=${AES_IV}
-      - SESSION_SIGNNATURE=${SESSION_SIGNNATURE}
       - NODE_ENV=development
+  api:
+    build:
+      context: "./api"
+      dockerfile: "dev.Dockerfile"
+    command: "sh ./up.sh"
+    volumes:
+      - "./api:/go/src/user"
+    ports: 
+      - "8081:8081"
+    environment:
+      - AES_KEY=${AES_KEY}
   db:
     image: "mongo:3.4.22-xenial"
-    restart: "always"
     volumes:
       - "db:/data/db"
       - "configdb:/data/configdb"
