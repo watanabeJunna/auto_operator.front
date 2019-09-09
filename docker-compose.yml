@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 
 services:
   app:
@@ -9,9 +9,6 @@ services:
     ports: 
       - "3000:3000"
     environment:
-      - AES_KEY=${AES_KEY}
-      - AES_IV=${AES_IV}
-      - SESSION_SIGNNATURE=${SESSION_SIGNNATURE}
       - NODE_ENV=development
   api:
     build:
@@ -21,7 +18,7 @@ services:
     volumes:
       - "./api:/go/src/user"
     ports: 
-      - "9091:9091"
+      - "8081:8081"
     environment:
       - AES_KEY=${AES_KEY}
   db:
