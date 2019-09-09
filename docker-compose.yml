@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  web:
+  app:
     build: "./app"
     command: "npm run dev"
     volumes:
@@ -14,11 +14,16 @@ services:
       - SESSION_SIGNNATURE=${SESSION_SIGNNATURE}
       - NODE_ENV=development
   api:
-    build: "./api"
+    build:
+      context: "./api"
+      dockerfile: "dev.Dockerfile"
+    command: "sh ./up.sh"
     volumes:
-      - ".:/app"
+      - "./api:/go/src/user"
     ports: 
-      - "3001:3001"
+      - "9091:9091"
+    environment:
+      - AES_KEY=${AES_KEY}
   db:
     image: "mongo:3.4.22-xenial"
     volumes:
