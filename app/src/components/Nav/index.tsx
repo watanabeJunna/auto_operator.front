@@ -1,12 +1,12 @@
-import { useState, FC } from "../../pages/node_modules/react"
-import styled from "../../pages/node_modules/styled-components"
+import { useState, FC } from "react"
+import styled from "styled-components"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 import { NavLinkMenu } from "./NavLinkMenu"
 import { NavIconMenu, Bars } from "./NavIconMenu"
 import { SideMenu } from "./SideMenu"
 
 type Props = {
-    navMenuItems: NavItem[]
+    navMenuItems: any
     sideMenuItems?: string[]
     isDisplaySideMenu: boolean
 }

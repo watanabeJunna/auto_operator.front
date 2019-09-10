@@ -1,4 +1,4 @@
-import { css } from "../../pages/node_modules/styled-components"
+import { css } from "styled-components"
 
 export const Item = css`
     color: #5f6f81;

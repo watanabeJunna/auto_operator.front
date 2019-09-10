@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon -L",
+    "dev": "next",
     "ui": "next"
   },
   "keywords": [],

@@ -1,5 +1,5 @@
-import styled, { css } from '../../src/components/node_modules/styled-components'
-import { FC, useRef, useState, MutableRefObject } from '../../src/components/Nav/node_modules/react'
+import styled, { css } from 'styled-components'
+import { FC, useRef, useState, MutableRefObject } from 'react'
 import { Container } from '../../components/Container'
 import fetch from 'isomorphic-fetch'
 
@@ -89,6 +89,10 @@ const LoginForm: FC = () => {
 
         const username = usernameInputVal
         const password = passwordInputVal
+
+        interface LoginAuthResponse {
+            ok: boolean
+        }
 
         let response: LoginAuthResponse = {
             ok: false

@@ -1,16 +1,16 @@
-import { FC, ReactText } from "../../pages/node_modules/react"
+import { FC, ReactText } from "react"
 import Link from "next/link"
-import styled from "../../pages/node_modules/styled-components"
+import styled from "styled-components"
 import { Item } from "./Item"
 
 type Props = {
-    items: NavItem[]
+    items: any
 }
 
 export const NavLinkMenu: FC<Props> = props => (
     <NavLinkMenuWrapper>
         {
-            props.items.map((item: NavItem, c: ReactText) => {
+            props.items.map((item: any, c: ReactText) => {
                 const navItem = <NavItem key={c}>{item.name}</NavItem>
 
                 return (

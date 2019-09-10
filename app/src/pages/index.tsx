@@ -43,7 +43,7 @@ const Desciption = styled.div`
     font-size: 32px;
 `
 
-const navMenuItems: NavItem[] = [
+const navMenuItems: any = [
   { name: "Signup", link: "/account/signup" },
   { name: "Signin", link: "/account/signin" }
 ]

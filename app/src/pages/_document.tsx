@@ -1,11 +1,11 @@
-import { ReactElement } from "../src/components/Nav/node_modules/react"
+import { ReactElement } from "react"
 import Document, {
     DocumentContext,
     Head,
     NextScript,
     Main,
 } from "next/document"
-import { ServerStyleSheet } from "../src/components/node_modules/styled-components"
+import { ServerStyleSheet } from "styled-components"
 import { RenderPage, DocumentInitialProps } from "next-server/dist/lib/utils"
 
 type Props = {

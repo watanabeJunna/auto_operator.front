@@ -1,5 +1,5 @@
-import { FC, ReactText } from "../../pages/node_modules/react"
-import styled, { css, StyledComponentBase } from "../../pages/node_modules/styled-components"
+import { FC, ReactText } from "react"
+import styled, { css, StyledComponentBase } from "styled-components"
 import { Item } from "./Item"
 
 type Props = {
