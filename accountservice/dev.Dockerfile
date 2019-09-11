@@ -13,5 +13,3 @@ RUN set -eux; \
     && mv /tmp/include /usr/local/. \
     && rm -rf /tmp/* \
     && mkdir /go/src/user
-
-WORKDIR /go/src/user
