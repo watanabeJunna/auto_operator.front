@@ -12,14 +12,14 @@ services:
     working_dir: /app
     environment:
       - NODE_ENV=development
-  accountservice:
-    container_name: accountservice
+  userservice:
+    container_name: userservice
     build:
-      context: "./accountservice"
+      context: "./userservice"
       dockerfile: "dev.Dockerfile"
     command: "sh ./up.sh"
     volumes:
-      - "./accountservice:/go/src/user"
+      - "./userservice:/go/src/user"
     ports: 
       - "8081:8081"
     working_dir: /go/src/user
