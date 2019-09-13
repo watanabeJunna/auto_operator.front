@@ -21,17 +21,17 @@ var key = os.Getenv("AES_KEY")
 
 func (e *userService) Auth(ctx context.Context, req *pb.AuthRequest) (*pb.AuthResponse, error) {
     username := req.Username
-    password, err := cipher.Encrypt(key, req.Password)
+    password := req.Password
 
-    if err != nil {
-        return nil, err
+    if username == "" || password == "" {
+        return &pb.AuthResponse{ Ok: false }, nil
     }
 
     query := bson.M{ "username": username }
 
     user := &bson.M{}
 
-    err = collection.FindOne(context.Background(), query).Decode(user)
+    err := collection.FindOne(context.Background(), query).Decode(user)
 
     if err != nil {
         fmt.Println(err)
@@ -44,7 +44,7 @@ func (e *userService) Auth(ctx context.Context, req *pb.AuthRequest) (*pb.AuthRe
     dec, err := cipher.Decrypt(key, (*user)["password"].(string))
 
     if err != nil {
-        return nil, err
+        return &pb.AuthResponse{ Ok: false }, err
     }
 
     ok := dec == password
