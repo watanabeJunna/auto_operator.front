@@ -2,7 +2,6 @@ version: "3"
 
 services:
   frontend:
-    container_name: frontend
     image: node:10.16.2-alpine
     command: "npm run dev"
     ports:
@@ -12,19 +11,26 @@ services:
     working_dir: /app
     environment:
       - NODE_ENV=development
+  userservice_init:
+    image: golang:1.12.9-alpine3.10
   userservice:
-    container_name: userservice
-    build:
-      context: "./userservice"
-      dockerfile: "dev.Dockerfile"
-    command: "sh ./up.sh"
+    image: golang:1.12.9-alpine3.10
+    command: "go run server/main.go"
+    volumes:
+      - "./userservice:/go/src/user"
+    ports: 
+      - "9090:9090"
+    working_dir: /go/src/user
+    environment:
+      - AES_KEY=${AES_KEY}
+  userservice_gateway:
+    image: golang:1.12.9-alpine3.10
+    command: "go run gateway/main.go"
     volumes:
       - "./userservice:/go/src/user"
     ports: 
       - "8081:8081"
     working_dir: /go/src/user
-    environment:
-      - AES_KEY=${AES_KEY}
   db:
     image: "mongo:3.4.22-xenial"
     volumes:
