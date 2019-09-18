@@ -11,26 +11,46 @@ services:
     working_dir: /app
     environment:
       - NODE_ENV=development
-  userservice_init:
+  userservice-init:
     image: golang:1.12.9-alpine3.10
+    command: |
+      sh -c "
+      apk add --no-cache git;
+      find -name '*.go' |\
+       egrep -v 'pb|test' |\
+       xargs -I{} go build -o /dev/null {}"
+    volumes:
+      - "./userservice:/go/src/user"
+      - "gopkg:/go/pkg/mod/"
+      - "golcpkg:/usr/local/go/pkg/"
+    working_dir: /go/src/user
+    environment:
+      - GO111MODULE=on
   userservice:
     image: golang:1.12.9-alpine3.10
     command: "go run server/main.go"
     volumes:
       - "./userservice:/go/src/user"
+      - "gopkg:/go/pkg/mod/"
+      - "golcpkg:/usr/local/go/pkg/"
     ports: 
       - "9090:9090"
     working_dir: /go/src/user
     environment:
+      - GO111MODULE=on
       - AES_KEY=${AES_KEY}
   userservice_gateway:
     image: golang:1.12.9-alpine3.10
     command: "go run gateway/main.go"
     volumes:
       - "./userservice:/go/src/user"
+      - "gopkg:/go/pkg/mod/"
+      - "golcpkg:/usr/local/go/pkg/"
     ports: 
       - "8081:8081"
     working_dir: /go/src/user
+    environment:
+      - GO111MODULE=on
   db:
     image: "mongo:3.4.22-xenial"
     volumes:
@@ -41,3 +61,5 @@ services:
 volumes:
   db:
   configdb:
+  gopkg:
+  golcpkg:
