@@ -13,7 +13,7 @@ import (
 )
 
 var (
-    grpcServerEndpoint = flag.String("grpc-server-endpoint",  "localhost:9090", "gRPC server endpoint")
+    grpcServerEndpoint = flag.String("grpc-server-endpoint",  "userservice:9090", "gRPC server endpoint")
 )
 
 func run() error {
